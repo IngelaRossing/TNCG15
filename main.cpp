@@ -1,6 +1,8 @@
 #include <iostream>
 #include "glm/glm.hpp"
 
+using namespace std;
+
 //TODO: fix this! It does not work
 using Vertex = glm::vec4; //three spatial coordinates x,y,z and w for homogeneous coordinates
 using Direction =glm::vec3; //direction vector (x,y,z)
@@ -16,7 +18,7 @@ struct Ray{
     ColorDbl ray_color;
 
     //Ray contains a reference to the triangle on which the end point is located.
-    Triangle& hit_triangle;
+    //Triangle& hit_triangle;
 
 };
 
@@ -39,7 +41,13 @@ Triangle::Triangle(Vertex &vi0, Vertex &vi1, Vertex &vi2, double *cl)
     : v0(vi0), v1(vi1), v2(vi2)
 {
     //copy values from cl or fix class
+
     //calculate normal
+    Direction side1 = Direction(v1.x-v0.x, v1.y-v0.y, v1.z-v0.z);
+    Direction side2 = Direction(v2.x-v0.x, v2.y-v0.y, v2.z-v0.z);
+    normal = glm::normalize(glm::cross(side1, side2));
+
+    cout << "Created triangle with normal (" << normal.x << "," << normal.y << "," << normal.z << ")\n";
 }
 
 // The scene is always a hexagon room
@@ -71,7 +79,7 @@ class Scene{
             Vertex(0,-6,-5,0)
     };
 
-    Triangle triangle_table[20]{ //Fuck. Normalerna borde ju vara inåt
+    Triangle triangle_table[20]{
 
             Triangle(v[2], v[0],  v[1],white),   //top 0-3
             Triangle(v[4], v[2], v[3],white),
