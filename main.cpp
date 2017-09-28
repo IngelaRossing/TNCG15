@@ -6,14 +6,6 @@ using Vertex = glm::vec4; //three spatial coordinates x,y,z and w for homogeneou
 using Direction =glm::vec3; //direction vector (x,y,z)
 using ColorDbl = double[3]; //three double prec. variables for RGB intensities
 
-//three spatial coordinates x,y,z and w for homogeneous coordinates
-/*struct Vertex{
-    float x, y, z, w;
-public:
-    Vertex(float X, float Y, float Z, float W) : x(X), y(Y), z(Z), w(W) {};
-    Vertex() : x(0), y(0), z(0), w(0) {};
-};
-*/
 
 //TODO: Constructors
 struct Ray{
@@ -21,10 +13,11 @@ struct Ray{
     Vertex start_point;
     Vertex end_point;
 
-    //Ray contains a reference to the triangle on which the end point is located.
-    //Triangle& hit_triangle;
-
     ColorDbl ray_color;
+
+    //Ray contains a reference to the triangle on which the end point is located.
+    Triangle& hit_triangle;
+
 };
 
 
@@ -36,7 +29,7 @@ Direction normal;
 
 public:
     Triangle(Vertex& vi0, Vertex& vi1, Vertex& vi2, ColorDbl cl);
-    Triangle(); //FIX
+    //Triangle(); //FIX
     // Computes the intersection between a ray and the Triangle with the Möller-Trumbore algorithm.
     //Vertex rayIntersection(Ray r); //Not sure if it should return a Vertex..
 
@@ -80,28 +73,28 @@ class Scene{
 
     Triangle triangle_table[20]{ //Fuck. Normalerna borde ju vara inåt
 
-            Triangle(v[0], v[2], v[1],white),   //top 0-3
-            Triangle(v[2], v[4], v[3],white),
-            Triangle(v[0], v[5], v[4],white),
-            Triangle(v[0], v[4], v[2],white),
+            Triangle(v[2], v[0],  v[1],white),   //top 0-3
+            Triangle(v[4], v[2], v[3],white),
+            Triangle(v[5], v[0], v[4],white),
+            Triangle(v[4], v[0], v[2],white),
 
-            Triangle(v[10], v[11], v[6],white), //bottom 4-7
-            Triangle(v[8], v[9], v[10],white),
-            Triangle(v[6], v[7], v[8],white),
-            Triangle(v[6], v[8], v[10],white),
+            Triangle(v[11], v[10], v[6],white), //bottom 4-7
+            Triangle(v[9], v[8], v[10],white),
+            Triangle(v[7], v[6], v[8],white),
+            Triangle(v[8], v[6], v[10],white),
 
-            Triangle(v[0], v[1], v[7], w1),      //red wall
-            Triangle(v[0], v[7], v[6], w1),
-            Triangle(v[1], v[2], v[8], w2),      //yellow wall
-            Triangle(v[1], v[8], v[7], w2),
-            Triangle(v[2], v[3], v[9], w3),      //cyan wall
-            Triangle(v[2], v[9], v[8], w3),
-            Triangle(v[3], v[4], v[10], w4),     //blue wall
-            Triangle(v[3], v[10], v[9], w4),
-            Triangle(v[4], v[5], v[11], w5),     //magenta wall
-            Triangle(v[4], v[11], v[10], w5),
-            Triangle(v[5], v[0], v[6], w6),      //green wall
-            Triangle(v[5], v[6], v[11], w6)
+            Triangle(v[1], v[0], v[7], w1),      //red wall
+            Triangle(v[7], v[0], v[6], w1),
+            Triangle(v[2], v[1], v[8], w2),      //yellow wall
+            Triangle(v[8], v[1], v[7], w2),
+            Triangle(v[3], v[2], v[9], w3),      //cyan wall
+            Triangle(v[9], v[2], v[8], w3),
+            Triangle(v[4], v[3], v[10], w4),     //blue wall
+            Triangle(v[10], v[3], v[9], w4),
+            Triangle(v[5], v[4], v[11], w5),     //magenta wall
+            Triangle(v[11], v[4], v[10], w5),
+            Triangle(v[0], v[5], v[6], w6),      //green wall
+            Triangle(v[6], v[5], v[11], w6)
 
     };
 };
