@@ -2,3 +2,9 @@
 bin/Debug/TNCG15
 
 *.o
+
+*.depend
+
+*.xml
+
+*.iml

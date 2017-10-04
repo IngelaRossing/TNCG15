@@ -32,6 +32,17 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Camera.cpp" />
+		<Unit filename="Camera.h" />
+		<Unit filename="Pixel.cpp" />
+		<Unit filename="Pixel.h" />
+		<Unit filename="Ray.cpp" />
+		<Unit filename="Ray.h" />
+		<Unit filename="Scene.cpp" />
+		<Unit filename="Scene.h" />
+		<Unit filename="Triangle.cpp" />
+		<Unit filename="Triangle.h" />
+		<Unit filename="definitions.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
