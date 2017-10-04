@@ -7,7 +7,6 @@
 #include <iostream>
 
 
-
 class Triangle{
 private:
 Vertex v0,v1,v2;

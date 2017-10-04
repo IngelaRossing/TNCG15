@@ -28,7 +28,7 @@ int main() {
         Vertex(0.3,0.3,1,0)
      };
      Triangle t{v[0], v[1], v[2], c};
-     Ray r = Ray(v[3], v[4], c);
+     Ray r = Ray(v[3], v[4], c, t);
 
     Vertex intersectionPoint = t.rayIntersection(r);
 
