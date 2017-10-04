@@ -32,7 +32,7 @@ public:
         Vertex(0,-6,-5,0)
     };
 
-    Triangle triangle_table[20]{
+    Triangle triangles[20]{
 
         Triangle(v[2], v[0],  v[1],white),   //top 0-3
         Triangle(v[4], v[2], v[3],white),

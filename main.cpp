@@ -6,10 +6,9 @@
 
 using namespace std;
 
-
+Scene scene;
 int main() {
 
-    Scene scene;
     Vertex w{1,2,3,4};
     ColorDbl c{1,1,1};
 
@@ -28,7 +27,7 @@ int main() {
         Vertex(0.3,0.3,1,0)
      };
      Triangle t{v[0], v[1], v[2], c};
-     Ray r = Ray(v[3], v[4], c, t);
+     Ray r = Ray(v[3], v[4], c);
 
     Vertex intersectionPoint = t.rayIntersection(r);
 

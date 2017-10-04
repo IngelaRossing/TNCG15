@@ -4,8 +4,10 @@
 #include "definitions.h"
 #include "Ray.h"
 
+#include <vector>
+
 class Pixel{
     ColorDbl color; //Holds color and intensity for this pixel with a HDR
-//    Ray& intersecting_rays[]{};
+    std::vector<Ray*> intersecting_rays;
 };
 #endif // PIXEL_H
