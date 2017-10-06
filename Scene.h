@@ -2,11 +2,15 @@
 #define SCENE_H
 
 #include "Triangle.h"
+#include <iostream>
+
 
 // The scene is always a hexagon room
 class Scene{
 public:
     //different colors for the walls, white floor and ceiling
+    void getIntersection(Ray& ray);
+
     ColorDbl white{1,1,1};
     ColorDbl w1{1,0,0}; //red
     ColorDbl w2{1,1,0}; //yellow
@@ -32,7 +36,8 @@ public:
         Vertex(0,-6,-5,0)
     };
 
-    Triangle triangles[20]{
+    const static int T_SIZE = 20;
+    Triangle triangles[T_SIZE]{
 
         Triangle(v[2], v[0],  v[1],white),   //top 0-3
         Triangle(v[4], v[2], v[3],white),

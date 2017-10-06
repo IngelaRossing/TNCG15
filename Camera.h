@@ -11,9 +11,9 @@ class Camera{
      Vertex eyes[2]{Vertex(-1,0,0,0),Vertex(-2,0,0,0)};
      int eye = 1; //let the user choose which eye to use, 0 or 1, default is 0
 
+    Scene scene;
 
-
-    static const int WINDOW_SIZE = 10;
+    static const int WINDOW_SIZE = 5;
     //std::vector<std::vector<Pixel>> window;
     std::array<std::array<Pixel, WINDOW_SIZE>, WINDOW_SIZE> pixels;
 

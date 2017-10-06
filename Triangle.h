@@ -7,7 +7,6 @@
 #include <iostream>
 
 
-
 class Triangle{
 private:
 Vertex v0,v1,v2;
@@ -18,6 +17,6 @@ public:
     Triangle(Vertex& vi0, Vertex& vi1, Vertex& vi2, ColorDbl& cl);
     //Triangle(); //FIX
     // Computes the intersection between a ray and the Triangle with the Möller-Trumbore algorithm.
-    Vertex rayIntersection(Ray& r); //Not sure if it should return a Vertex..
+    bool rayIntersection(Ray& r); //Not sure if it should return a Vertex..
 };
 #endif

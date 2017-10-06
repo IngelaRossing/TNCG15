@@ -13,7 +13,7 @@ Triangle::Triangle(Vertex &vi0, Vertex &vi1, Vertex &vi2, ColorDbl& cl)
     std::cout << "Created triangle with normal (" << normal.x << "," << normal.y << "," << normal.z << ")\n";
 }
 
-Vertex Triangle::rayIntersection(Ray& r)
+bool Triangle::rayIntersection(Ray& r)
 {
     Vertex pe=r.getStart();
     Vertex ps=r.getEnd();
@@ -22,6 +22,11 @@ Vertex Triangle::rayIntersection(Ray& r)
     glm::vec3 E2=v2-v0;
     glm::vec3 D=pe-ps;
 
+   /* std::cout<<"V0: "<<v0.x<<","<<v0.y<<","<<v0.z<<std::endl;
+    std::cout<<"V1: "<<v1.x<<","<<v1.y<<","<<v1.z<<std::endl;
+    std::cout<<"V2: "<<v2.x<<","<<v2.y<<","<<v2.z<<std::endl;
+    */
+
     glm::vec3 P=glm::cross(D,E2);
     glm::vec3 Q=glm::cross(T,E1);
 
@@ -29,11 +34,11 @@ Vertex Triangle::rayIntersection(Ray& r)
 
     // if the determinant is negative the triangle is backfacing
     // if the determinant is close to 0, the ray misses the triangle
-    if (det < 0.00001) return Vertex(); //If culling
+    if (det < 0.00001) return false; //If culling
 
     // ray and triangle are parallel if det is close to 0
     //Ray is parallell to triangle and misses
-    if (fabs(det) < 0.00001) return Vertex();
+    if (fabs(det) < 0.00001) return false;
     //std::cout << "ray is incoming from a good direction\n";
 
     float invDet=1/det;
@@ -43,13 +48,25 @@ Vertex Triangle::rayIntersection(Ray& r)
 
 
     //Now we test if it hits the triangle
-    if (u < 0 || u > 1) return Vertex();
-
-    if (v < 0 || u + v > 1) return Vertex();
+    if (u < 0.0f || u > 1.0f) return false;
+    std::cout << "*";
+    if (v < 0.0f || u + v > 1.0f) return false;
 
     float t=glm::dot(Q,E2)*invDet;
 
-    return Vertex(ps.x+t*D.x, ps.y+t*D.y, ps.z+t*D.z, 1);
+    std::cout << " Found intersection! ";
+    Vertex ip = Vertex(ps.x+t*D.x, ps.y+t*D.y, ps.z+t*D.z, 1); //new endpoint for ray if it is closer then the previous one
+
+    //if prev is closer, we don't update ray and return false even if we have an intersection!
+    if(glm::length(pe-ps) < glm::length(pe-ip))
+        return false;
+    else
+    {
+        //ray gets a new intersection point endP = ip and new hit_triangle = this
+        r.setEnd(*this, ip);
+        return true;
+    }
+
 
     //return Vertex(u*E1.x+v*E2.x-t*D.x+v0.x, u*E1.y+v*E2.y-t*D.y+v0.y, u*E1.z+v*E2.z-t*D.z+v0.z, 1);
 }

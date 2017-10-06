@@ -3,6 +3,7 @@
 
 #include "definitions.h"
 
+class Triangle;
 class Ray{
 private:
     Vertex start_point;
@@ -17,6 +18,7 @@ public:
      Ray(Vertex& startP, Vertex& endP, ColorDbl c);
      Vertex getStart() {return start_point;}
      Vertex getEnd() {return end_point;}
+     void setEnd(Triangle& tref, Vertex& ps);
 
 };
 #endif

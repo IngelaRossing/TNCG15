@@ -6,6 +6,8 @@
 
 using namespace std;
 
+
+
 Scene scene;
 int main() {
 
@@ -13,7 +15,7 @@ int main() {
     ColorDbl c{1,1,1};
 
     Camera camera;
-    std::cout<<"Hej";
+
     camera.render();
 
     std::cout << "Vertex v:"  << w.x << std::endl;
@@ -29,9 +31,14 @@ int main() {
      Triangle t{v[0], v[1], v[2], c};
      Ray r = Ray(v[3], v[4], c);
 
-    Vertex intersectionPoint = t.rayIntersection(r);
+    if( t.rayIntersection(r))
+        std::cout << "intersection!" << std::endl;
+    else
+        std::cout << "missed t\n";
 
-    std::cout << "Instersection points:"  << intersectionPoint.x<<intersectionPoint.y<<intersectionPoint.z<< std::endl;
+
+
+//    std::cout << "Instersection points:"  << intersectionPoint.x<<intersectionPoint.y<<intersectionPoint.z<< std::endl;
 
     return 0;
 }
