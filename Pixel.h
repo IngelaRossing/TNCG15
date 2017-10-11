@@ -9,5 +9,8 @@
 class Pixel{
     ColorDbl color; //Holds color and intensity for this pixel with a HDR
     std::vector<Ray*> intersecting_rays;
+
+    friend class Camera; //to give Camera access to privates
+
 };
 #endif // PIXEL_H
