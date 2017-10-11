@@ -23,7 +23,7 @@ void Camera::render(){
             Vertex ps = Vertex(pe.x+30*D.x, pe.y+30*D.y, pe.z+30*D.z,0);
             std::cout << "ps: " << ps.x << "," << ps.y << ","<< ps.z << " \n";
             //We create a white ray with end point somewhere far in the direction D from eye point
-            Ray r = Ray(eyes[eye], ps, ColorDbl(1,1,1));
+            Ray r = Ray( ps, eyes[eye],ColorDbl(1,1,1));
            // .intersecting_rays.pushback(*r );
 
             //find first intersection by checking intersection with all triangles in the scene
