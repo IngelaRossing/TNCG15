@@ -5,6 +5,9 @@
 #include "Pixel.h"
 #include <vector>
 #include <array>
+#include <fstream> //write to a file
+
+//#include "CImg.h" //does not find a file included in CImg.h
 
 class Camera{
 
@@ -13,14 +16,14 @@ class Camera{
 
     Scene scene;
 
-    static const int WINDOW_SIZE = 5;
+    static const int WINDOW_SIZE = 320;
     //std::vector<std::vector<Pixel>> window;
     std::array<std::array<Pixel, WINDOW_SIZE>, WINDOW_SIZE> pixels;
 
 
 public:
     void render(); //launches a ray through each pixel one at a time and changes pixel color
-    void createImage();
+    void createImage(); //Convert pixel data to 2D array of rgb-vectors     SHOULD IT RETURN A POINTER TO ARRAY?
    // Camera(int e);
 };
 
