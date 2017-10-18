@@ -1,5 +1,10 @@
 #include "Triangle.h"
 
+//This is a sad sad fix of the problem
+Triangle::Triangle()
+{
+    std::cout << "Created fake triangle\n";
+}
 
 Triangle::Triangle(Vertex &vi0, Vertex &vi1, Vertex &vi2, ColorDbl& cl)
     : v0(vi0), v1(vi1), v2(vi2), triangle_color(cl)
@@ -16,57 +21,64 @@ Triangle::Triangle(Vertex &vi0, Vertex &vi1, Vertex &vi2, ColorDbl& cl)
 bool Triangle::rayIntersection(Ray& r)
 {
     Vertex pe=r.getStart();
-    Vertex ps=r.getEnd();
-    glm::vec3 T=ps-v0;
+    Vertex ps=r.getEnd(); //Used for finding D, old first found triangle intersection with r
     glm::vec3 E1=v1-v0;
     glm::vec3 E2=v2-v0;
+    glm::vec3 T = ps-v0;
     glm::vec3 D=pe-ps;
 
    /* std::cout<<"V0: "<<v0.x<<","<<v0.y<<","<<v0.z<<std::endl;
     std::cout<<"V1: "<<v1.x<<","<<v1.y<<","<<v1.z<<std::endl;
     std::cout<<"V2: "<<v2.x<<","<<v2.y<<","<<v2.z<<std::endl;
     */
-
+    glm::normalize(D);
     glm::vec3 P=glm::cross(D,E2);
-    glm::vec3 Q=glm::cross(T,E1);
 
     float det = glm::dot(E1,P);
 
     // if the determinant is negative the triangle is backfacing
     // if the determinant is close to 0, the ray misses the triangle
-    if (det < 0.00001) return false; //If culling
+    if (det < 0.000001f) return false; //If culling
 
     // ray and triangle are parallel if det is close to 0
     //Ray is parallell to triangle and misses
-    if (fabs(det) < 0.00001) return false;
+    if (fabs(det) < 0.000001f) return false;
     //std::cout << "ray is incoming from a good direction\n";
 
-    float invDet=1/det;
+    //A point on the triangle can be found as T(u,v)
+    //We calculate v after testing u for efficiency
+    float invDet = 1.0f/det;
+    float u=glm::dot(P,T)*invDet; //T is not yet correct! D: TRYING WITH TRIANGLE NORMAL
 
-    float u=glm::dot(P,T)*invDet;
-    float v=glm::dot(Q,E2)*invDet;
-
-
-    //Now we test if it hits the triangle
+    //first test if it hits the triangle
     if (u < 0.0f || u > 1.0f) return false;
-    std::cout << "*";
+
+    glm::vec3 Q=glm::cross(T,E1);
+    float v=glm::dot(Q,D)*invDet;
+
+    //last test if it hits the triangle
     if (v < 0.0f || u + v > 1.0f) return false;
 
-    float t=glm::dot(Q,E2)*invDet;
+    //std::cout << " Found intersection! ";
 
-    std::cout << " Found intersection! ";
-    Vertex ip = Vertex(ps.x+t*D.x, ps.y+t*D.y, ps.z+t*D.z, 1); //new endpoint for ray if it is closer then the previous one
+    //t is the proportion of D that is needed to go from the triangle to the ray
+    float t = glm::dot(E2,Q)*invDet;
 
-    //if prev is closer, we don't update ray and return false even if we have an intersection!
-    if(glm::length(pe-ps) < glm::length(pe-ip))
+    //if we are behind eye or have a previous intersection closer, we don't update ray and return false even if we have an intersection!
+    if( t > 1.0f || t <= 0.0f ) //closer than prev but in fron of eye if 0 > t > 1
         return false;
     else
     {
+
+        T = u*E1 + v*E2 - t*D; //vector from v0 to intersection point ip on triangle
+        Vertex ip = Vertex(v0.x+T.x, v0.y+T.y, v0.z+T.z, 1);
+
         //ray gets a new intersection point endP = ip and new hit_triangle = this
         r.setEnd(*this, ip);
+
+        //Set ray color to triangle color but alsodependent on normal
+        r.setColor(triangle_color * double(glm::dot( normal, glm::normalize(-D) )));
+
         return true;
     }
-
-
-    //return Vertex(u*E1.x+v*E2.x-t*D.x+v0.x, u*E1.y+v*E2.y-t*D.y+v0.y, u*E1.z+v*E2.z-t*D.z+v0.z, 1);
 }

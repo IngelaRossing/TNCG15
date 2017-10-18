@@ -25,12 +25,12 @@ void Camera::render(){
             Vertex ps =  pe - D; //endpoint   //Vertex(pe.x-*D.x, pe.y-*D.y, pe.z-*D.z, 0);
             //std::cout << "ps: " << ps.x << "," << ps.y << ","<< ps.z << " \n";
             //We create a white ray with end point somewhere far in the direction D from eye point
-            Ray * ray = new Ray( ps,pe,  ColorDbl(1,1,1) ); //NOTE: ray could be deallocated after function render is done
+            Ray * ray = new Ray(  ps, pe, ColorDbl(1,1,1) ); //NOTE: ray could be deallocated after function render is done
 
             //find first intersection by checking intersection with all triangles in the scene and save triangle and point in ray
             scene.getIntersection(*ray);
 
-            //DEBUGGING COMMENT: We should be able to see intersections mostly with triangle 12-15 with our scene
+            //DEBUGGING COMMENT: We should be looking directly at triangle 12-15 (blue and cyan wall) within our scene
 
             //get color from BRDF which only depends on surface color and inclination angle and save in the ray
             //it is now done inside getIntersection, but it probably can't when we want to reflect the ray
@@ -47,9 +47,10 @@ void Camera::render(){
 //Convert pixel data to 2D array of rgb-vectors
 void Camera::createImage()
 {
-    std::array<std::array<ColorDbl, WINDOW_SIZE>, WINDOW_SIZE> image; //RGB vector 2D-array
+    std::array<std::array<ColorDbl, WINDOW_SIZE>, WINDOW_SIZE> image; //RGB vector<double> 2D-array
     std::ofstream red, green, blue;
 
+    //Right now i write to three diggerent files, but it should be a 3d array with vec3
     //choose some nice path where you want them
     red.open ("Documents/MATLAB/globaltest/red.txt");
     green.open ("Documents/MATLAB/globaltest/green.txt");
@@ -64,13 +65,13 @@ void Camera::createImage()
             image[r][c] = pixels[r][c].intersecting_rays[0]->getColor();
 
 
-            double color = image[r][c][0] + image[r][c][1] + image[r][c][2]; //black and white without truncating
+            /*double color = image[r][c][0] + image[r][c][1] + image[r][c][2]; //black and white without truncating
             if(color < 1)
                 std::cout << "@";
             else if(color < 2)
                 std::cout << "o";
             else
-                std::cout << ".";
+                std::cout << ".";*/
 
             //a file for each channel
             red << image[r][c][0] << " ";
@@ -82,10 +83,13 @@ void Camera::createImage()
         green << std::endl;
         blue << std::endl;
 
-         std::cout << std::endl;
+        //std::cout << std::endl;
     }
     red.close();
     green.close();
     blue.close();
+
+
+    //return image; ?
 
 }
