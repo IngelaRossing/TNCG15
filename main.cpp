@@ -16,7 +16,7 @@ int main() {
 
     ColorDbl cs{1,1,1};
 
-    Sphere sphere(1, Vertex(0.3,0.3,-0.1,0),Surface(cs, Surface::sSurfaceType::diffuse));
+    Sphere sphere(0.1, Vertex(0.3,0.3,0.5,0),Surface(cs, Surface::sSurfaceType::diffuse));
     Surface ss=sphere.getSurface();
 
     ColorDbl em=ss.detSurface();
