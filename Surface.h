@@ -20,18 +20,10 @@ class Surface
 
         sSurfaceType surfaceType;
 
-
-
-
-
-
     private:
         ColorDbl color;
-        double reflectionCoefficient=3;
-        double PI=3.14;
-
-
-
+        double reflectionCoefficient=3; //Probably wanna change this later
+        double PI=3.14159265359;
 };
 
 #endif // SURFACE_H

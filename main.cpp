@@ -12,6 +12,8 @@ using namespace std;
 Scene scene;
 int main() {
 
+    //Testing surface+Sphere, seems to be working
+
     ColorDbl cs{1,1,1};
 
     Sphere sphere(5, Vertex(0,0,6,0),Surface(cs, Surface::sSurfaceType::diffuse));
@@ -19,10 +21,8 @@ int main() {
 
     ColorDbl em=ss.detSurface();
 
-
-
-
     scene.addSphere(sphere);
+
 
     Vertex w{1,2,3,4};
     ColorDbl c{1,1,1};

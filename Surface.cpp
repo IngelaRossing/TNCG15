@@ -6,6 +6,8 @@ Surface::Surface(const ColorDbl &color, const sSurfaceType type)
     //ctor
 }
 
+//Returns the ColorDbl depending on which surface we have chosen for our object
+
 ColorDbl Surface::detSurface()
 {
     if(surfaceType==diffuse)
@@ -20,12 +22,12 @@ ColorDbl Surface::detSurface()
     return color;
 }
 
-ColorDbl Surface::diffuseReflection()
+ColorDbl Surface::diffuseReflection() //Diffuse surface
 {
     return color*reflectionCoefficient/PI;
 }
 
-ColorDbl Surface::specularReflection()
+ColorDbl Surface::specularReflection() //Specular surface
 {
     return color;
 }

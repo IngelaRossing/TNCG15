@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -40,6 +42,12 @@
 		<Unit filename="Ray.h" />
 		<Unit filename="Scene.cpp" />
 		<Unit filename="Scene.h" />
+		<Unit filename="Sphere.cpp" />
+		<Unit filename="Sphere.h" />
+		<Unit filename="Surface.cpp" />
+		<Unit filename="Surface.h" />
+		<Unit filename="Tetrahedron.cpp" />
+		<Unit filename="Tetrahedron.h" />
 		<Unit filename="Triangle.cpp" />
 		<Unit filename="Triangle.h" />
 		<Unit filename="definitions.h" />
