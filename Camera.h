@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "Pixel.h"
+#include "Sphere.h"
 #include <vector>
 #include <array>
 #include <fstream> //write to a file

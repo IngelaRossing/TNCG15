@@ -1,8 +1,8 @@
 #include "Sphere.h"
 #include <cmath>
 
-Sphere::Sphere(float radius, Vertex center)
-    :sRadius(radius), sCenter(center)
+Sphere::Sphere(float radius, Vertex center, Surface s)
+    :sRadius(radius), sCenter(center), sSurface(s)
 {
 
 }

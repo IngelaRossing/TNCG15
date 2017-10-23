@@ -16,6 +16,7 @@ public:
     void addSphere(const Sphere &s)
     {
         spheres.push_back(s);
+        std::cout<<"Sphere added!"<<std::endl;
     }
 
     ColorDbl white{1,1,1};

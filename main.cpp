@@ -3,6 +3,7 @@
 
 //#include "definitions.h"
 #include "Camera.h"
+#include "Sphere.h"
 
 using namespace std;
 
@@ -11,7 +12,16 @@ using namespace std;
 Scene scene;
 int main() {
 
-    Sphere sphere(5, Vertex(0,0,6,0));
+    ColorDbl cs{1,1,1};
+
+    Sphere sphere(5, Vertex(0,0,6,0),Surface(cs, Surface::sSurfaceType::diffuse));
+    Surface ss=sphere.getSurface();
+
+    ColorDbl em=ss.detSurface();
+
+
+
+
     scene.addSphere(sphere);
 
     Vertex w{1,2,3,4};
@@ -20,6 +30,8 @@ int main() {
     Camera camera;
 
     camera.render();
+
+    std::cout << em.x<<" "<<em.y<<" "<<em.z<<std::endl;
 
     std::cout << "Vertex v:"  << w.x << std::endl;
 
