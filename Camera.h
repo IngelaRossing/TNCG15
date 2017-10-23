@@ -16,7 +16,7 @@ class Camera{
 
     Scene scene;
 
-    static const int WINDOW_SIZE = 340; //Don't know why it doesn't run for bigger size :(
+    static const int WINDOW_SIZE = 100; //Don't know why it doesn't run for bigger size :(
     //std::vector<std::vector<Pixel>> window;
     std::array<std::array<Pixel, WINDOW_SIZE>, WINDOW_SIZE> pixels;
 

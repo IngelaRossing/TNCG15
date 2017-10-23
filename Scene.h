@@ -2,6 +2,8 @@
 #define SCENE_H
 
 #include "Triangle.h"
+#include "Sphere.h"
+#include<vector>
 #include <iostream>
 
 
@@ -10,6 +12,11 @@ class Scene{
 public:
     //different colors for the walls, white floor and ceiling
     void getIntersection(Ray& ray);
+
+    void addSphere(const Sphere &s)
+    {
+        spheres.push_back(s);
+    }
 
     ColorDbl white{1,1,1};
     ColorDbl w1{1,0,0}; //red
@@ -62,6 +69,9 @@ public:
         Triangle(v[0], v[5], v[6], w6),      //green wall
         Triangle(v[6], v[5], v[11], w6)
     };
+
+private:
+    std::vector<Sphere> spheres;
 };
 
 #endif // SCENE_H

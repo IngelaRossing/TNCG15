@@ -3,6 +3,8 @@
 
 #include "glm/glm.hpp"
 #include <stdlib.h>
+#include <cmath>
+#include <math.h>
 
 using Vertex = glm::vec4; //three spatial coordinates x,y,z and w for homogeneous coordinates
 using Direction =glm::vec3; //direction vector (x,y,z)
