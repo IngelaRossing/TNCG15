@@ -16,18 +16,22 @@ bool Sphere::rayIntersection(Ray& r)
     Vertex e=r.getEnd();
     glm::vec3 l=o-e; //direction
 
-    Vertex c=sCenter; //center
+    l=glm::normalize(l);
+
+    Vertex cen=sCenter; //center
 
     //We calculate the vector from the ray origin to the center of the sphere
-    glm::vec3 oc=o-c;
+    glm::vec3 oc=o-cen;
 
+    float b=glm::dot(l*2.0f,oc);
 
-    float b=glm::dot(2.0f*l,oc);
     if(b<0.000001) return false; //We do not intersect the sphere
 
-    float a=glm::dot(l,l);
     float d1=-(b/2.0f);
-    float secondPart=d1*d1-a*glm::dot(oc,oc)-rad*rad;
+
+    float c=glm::dot(oc,oc)-rad*rad;
+
+    float secondPart=d1*d1-c;
 
 
     if(secondPart<-0.000001) return false; //complex
@@ -35,6 +39,8 @@ bool Sphere::rayIntersection(Ray& r)
     float d2=d1;
 
     float sd=std::sqrt(secondPart);
+
+
 
     d1+=sd; //If the ray is on the positive side of the center I think??
     d2-=sd; //If the ray is on the negative side of the center I think??
