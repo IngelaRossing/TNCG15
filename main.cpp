@@ -29,10 +29,9 @@ int main() {
     std::cout << "TETRA" <<std::endl;
 
     Tetrahedron tetra(Vertex(1,1,1,0),Vertex(0,0,0,0),Vertex(0.5,0.5,0,0),Vertex(0,1,0,0),Surface(cs,Surface::sSurfaceType::specular));
+    scene.addTetrahedron(tetra);
 
     std::cout << "END OF TETRA" <<std::endl;
-
-    scene.addTetrahedron(tetra);
 
 
     Vertex w{1,2,3,4};
@@ -70,7 +69,11 @@ int main() {
     if(sphere.rayIntersection(r))
         std::cout << "intersection with sphere!" << std::endl;
     else
-        std::cout << "missed t\n";
+        std::cout << "missed sphere\n";
+    if(tetra.rayIntersection(r))
+         std::cout << "intersection with tetra!" << std::endl;
+    else
+        std::cout << "missed tetra\n";
 
 
 
