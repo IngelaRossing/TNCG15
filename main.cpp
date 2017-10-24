@@ -4,6 +4,7 @@
 //#include "definitions.h"
 #include "Camera.h"
 #include "Sphere.h"
+#include "Tetrahedron.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ int main() {
 
     //Testing surface+Sphere, seems to be working
 
-    ColorDbl cs{1,1,1};
+    ColorDbl cs{3,5,6};
 
     Sphere sphere(0.1, Vertex(0.3,0.3,0.5,0),Surface(cs, Surface::sSurfaceType::diffuse));
     Surface ss=sphere.getSurface();
@@ -22,6 +23,16 @@ int main() {
     ColorDbl em=ss.detSurface();
 
     scene.addSphere(sphere);
+
+    //Add Tetrahedron
+
+    std::cout << "TETRA" <<std::endl;
+
+    Tetrahedron tetra(Vertex(1,1,1,0),Vertex(0,0,0,0),Vertex(0.5,0.5,0,0),Vertex(0,1,0,0),Surface(cs,Surface::sSurfaceType::specular));
+
+    std::cout << "END OF TETRA" <<std::endl;
+
+    scene.addTetrahedron(tetra);
 
 
     Vertex w{1,2,3,4};
@@ -32,6 +43,7 @@ int main() {
     camera.render();
 
     std::cout << em.x<<" "<<em.y<<" "<<em.z<<std::endl;
+
 
     std::cout << "Vertex v:"  << w.x << std::endl;
 
@@ -45,6 +57,10 @@ int main() {
      };
      Triangle t{v[0], v[1], v[2], c};
      Ray r = Ray(v[3], v[4], c);
+
+
+
+
 
     if(t.rayIntersection(r))
         std::cout << "intersection!" << std::endl;

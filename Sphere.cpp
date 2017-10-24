@@ -49,4 +49,9 @@ bool Sphere::rayIntersection(Ray& r)
 
     return false; //We do not
 }
+glm::vec3 Sphere::getNormal(Vertex center)
+{
+    return glm::normalize(center-sCenter);
+}
+
 

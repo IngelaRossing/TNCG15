@@ -5,18 +5,22 @@
 #include "definitions.h"
 #include "Triangle.h"
 #include "vector"
+#include "Surface.h"
 
 
 
 class Tetrahedron
 {
     public:
-        //Tetrahedron();
+        Tetrahedron(Vertex top, Vertex bot1, Vertex bot2, Vertex bot3, Surface s);
         bool rayIntersection(Ray& r);
-        void addTetrahedron(Vertex top, Vertex bot1, Vertex bot2, Vertex bot3);
+        Vertex v0,v1,v2,v3;
+
 
     private:
-        std::vector<Triangle> tetra;
+        Surface tSurface;
+
+
 
 
 

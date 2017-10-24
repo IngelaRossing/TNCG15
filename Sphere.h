@@ -14,6 +14,7 @@ public:
     float getRadius(){return sRadius;}
     Vertex getCenter(){return sCenter;} //Don't know if we need but was bored and wanted to code
     Surface getSurface(){return sSurface;}
+    glm::vec3 getNormal(Vertex center);
 
 private:
     float sRadius;

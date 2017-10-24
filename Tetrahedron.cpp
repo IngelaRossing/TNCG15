@@ -1,18 +1,15 @@
 #include "Tetrahedron.h"
 
-//Tetrahedron::Tetrahedron(Vertex position);
-//{
-
-
-//}
-void Tetrahedron::addTetrahedron(Vertex top, Vertex bot1, Vertex bot2, Vertex bot3)
+Tetrahedron::Tetrahedron(Vertex top, Vertex bot1, Vertex bot2, Vertex bot3, Surface s)
+                        :v0(top), v1(bot1), v2(bot2), v3(bot3), tSurface(s)
 {
-     ColorDbl c{1,1,1};
+    ColorDbl c{1,1,1};
 
-     tetra.push_back(Triangle(top, bot1, bot2,c));
-     tetra.push_back(Triangle(top, bot3, bot1, c));
-     tetra.push_back(Triangle(top, bot2, bot3, c));
-     tetra.push_back(Triangle(bot3, bot2, bot1, c));
+    Triangle t0(v0, v1, v2,c);
+    Triangle t1(v0, v3, v1, c);
+    Triangle t2(v0, v2, v3, c);
+    Triangle t3(v3, v2, v1, c);
+
 
 }
 

@@ -3,6 +3,7 @@
 
 #include "Triangle.h"
 #include "Sphere.h"
+#include "Tetrahedron.h"
 #include<vector>
 #include <iostream>
 
@@ -18,6 +19,11 @@ public:
         spheres.push_back(s);
         std::cout<<"Sphere added!"<<std::endl;
     }
+     void addTetrahedron(const Tetrahedron &t)
+     {
+        tetrahedrons.push_back(t);
+        std::cout<<"Tetra added!"<<std::endl;
+     }
 
     ColorDbl white{1,1,1};
     ColorDbl w1{1,0,0}; //red
@@ -73,6 +79,7 @@ public:
 
 private:
     std::vector<Sphere> spheres;
+    std::vector<Tetrahedron> tetrahedrons;
 };
 
 #endif // SCENE_H

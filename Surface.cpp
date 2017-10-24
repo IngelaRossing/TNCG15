@@ -19,7 +19,7 @@ ColorDbl Surface::detSurface()
         return specularReflection();
 
     std::cout<<"Error no valid surface"<<std::endl;
-    return color;
+    return ColorDbl(0,0,0);
 }
 
 ColorDbl Surface::diffuseReflection() //Diffuse surface
