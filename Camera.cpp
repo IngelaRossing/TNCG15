@@ -25,7 +25,7 @@ void Camera::render(){
             Vertex ps =  pe - D; //endpoint   //Vertex(pe.x-*D.x, pe.y-*D.y, pe.z-*D.z, 0);
             //std::cout << "ps: " << ps.x << "," << ps.y << ","<< ps.z << " \n";
             //We create a white ray with end point somewhere far in the direction D from eye point
-            Ray * ray = new Ray(  ps, pe, ColorDbl(1,1,1) ); //NOTE: ray could be deallocated after function render is done
+            Ray * ray = new Ray( ps , pe, ColorDbl(1,1,1) ); //NOTE: ray could be deallocated after function render is done
 
             //CAST RAY, let it get reflected into the scene
 
