@@ -27,8 +27,10 @@ void Camera::render(){
             //We create a white ray with end point somewhere far in the direction D from eye point
             Ray * ray = new Ray(  ps, pe, ColorDbl(1,1,1) ); //NOTE: ray could be deallocated after function render is done
 
+            //CAST RAY, let it get reflected into the scene
+
             //find first intersection by checking intersection with all triangles in the scene and save triangle and point in ray
-            scene.getIntersection(*ray);
+            scene.getIntersection(*ray); //WILL BE DONE INSIDE castRay
 
             //DEBUGGING COMMENT: We should be looking directly at triangle 12-15 (blue and cyan wall) within our scene
 
@@ -42,6 +44,38 @@ void Camera::render(){
     }
     std::cout << "\n\nIF RAY IN PIXEL:\n\n";
     createImage();
+}
+
+//Let a ray spread from ray startingpoint into scene with ray.direction and get its color, which might be dependent on its reflections
+ColorDbl Camera::castRay(Ray &ray, int depth)
+{
+    //Find first intersection
+    //We need to check if we intersect a sphere or triangle first
+
+    //If first intersection is with a triangle:
+        //check if we should reflect a ray
+        //don't reflect if surface is diffuse, depth > MAX_REFLECTIONS, contribution of next ray < THRESHOLD
+
+        //If no reflection:
+        //return BRDF;
+
+        //If reflection:
+        //calculate how much of the light gets, dependent on surfaceproperties and geometric, later with Oren-Nayar diffuse reflection
+        //ColorDbl BRDF =
+
+        //ray2 direction, reflection R dependent on triangle normal and Monte-Carlo integration
+        //PDF: p(theta,phi) = cos(theta)/pi and CDF: F = (1/pi)integral(cos(theta) domega)
+
+        //Ray ray2 = Ray(ray.getEnd(), ray.getEnd() + 30.0f* R, ColorDbl(1,1,1));
+
+    //If first intersection is with a sphere:
+        //If no reflection: return BRDF
+        //Calculate BRDF and ray2 in another way
+
+    //Lambertian BRDF = rho/ pi, where rho is a constant refl. coeff.
+    //importance of ray is given by BRDF and color of radiance getting reflected into ray
+    //ray->ray_color = elementwise multiplication(BRDF, castRay(ray2, depth + 1));
+
 }
 
 //Convert pixel data to 2D array of rgb-vectors
