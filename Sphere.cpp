@@ -1,5 +1,7 @@
 #include "Sphere.h"
 #include <cmath>
+#define EPSILON 0.00000000000000001
+
 
 Sphere::Sphere(float radius, Vertex center, Surface s)
     :sRadius(radius), sCenter(center), sSurface(s)
@@ -11,17 +13,13 @@ bool Sphere::rayIntersection(Ray& r)
     //This is pretty straight forward. We just implement the equation given in the CodeOutline
 
     float rad=sRadius;
-
     Vertex o=r.getStart();
-
     Vertex e=r.getEnd();
+    Vertex cen=sCenter; //center
     glm::vec3 l=e-o; //direction
-
-
 
     l=glm::normalize(l);
 
-    Vertex cen=sCenter; //center
 
     //We calculate the vector from the ray origin to the center of the sphere
     glm::vec3 oc=o-cen;
@@ -32,20 +30,37 @@ bool Sphere::rayIntersection(Ray& r)
 
     float c=glm::dot(oc,oc)-rad*rad;
 
-
     float secondPart=d1*d1-c;
 
-    if(secondPart<-0.000001) return false; //complex
+    if(secondPart<-EPSILON) return false; //complex
 
     float d2=d1;
 
     float sd=std::sqrt(secondPart);
 
-    d1+=sd; //If the ray is on the positive side of the center I think??
-    d2-=sd; //If the ray is on the negative side of the center I think??
+    d1+=sd;
+    d2-=sd;
 
-    if(d1>0.000001) return true; //We intersect with the sphere
-    else if(d2>0.000001) return true; //We intersect with the sphere
+    if(d1>EPSILON)
+    {
+        /*
+        Vertex intPoint=Vertex(o.x+d1*l.x, o.y+d1*l.y, o.z+d1*l.z,1);
+        r.setEnd(*this,intPoint); //Probably need to do this another way since this is not a triangle
+        */
+
+        return true; //We intersect with the sphere
+    }
+
+    else if(d2>EPSILON)
+    {
+        /*
+        Vertex intPoint=Vertex(o.x+d2*l.x, o.y+d2*l.y, o.z+d2*l.z,1);
+        r.setEnd(*this,intPoint); //Probably need to do this another way since this is not a triangle
+        */
+
+       return true; //We intersect with the sphere
+    }
+
 
     return false; //We do not
 }
