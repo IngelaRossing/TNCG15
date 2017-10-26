@@ -6,8 +6,8 @@ Ray::Ray(Vertex& startP, Vertex& endP, ColorDbl c)
 
 }
 
-void Ray::setEnd(Triangle& tref, Vertex& ps)
+void Ray::setEnd(Triangle* ht, Vertex& ps)
 {
-    // hit_triangle = tref;
-     end_point = ps;
+    hit_triangle = ht;
+    end_point = ps;
 }

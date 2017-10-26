@@ -13,7 +13,7 @@ private:
     ColorDbl ray_color ;
 
     //Ray contains a reference to the triangle on which the end point is located.
-//    Triangle& hit_triangle = Triangle(Vertex(0,0,0,0),Vertex(0,0,0,0),Vertex(0,0,0,0), ColorDbl(0,0,0));
+    Triangle* hit_triangle = nullptr;
 
 public:
      Ray(Vertex& startP, Vertex& endP, ColorDbl c);
@@ -21,7 +21,7 @@ public:
      Vertex getEnd() {return end_point;}
      ColorDbl getColor() {return ray_color;}
      ColorDbl setColor(ColorDbl c) {ray_color = c;}
-     void setEnd(Triangle& tref, Vertex& ps);
+     void setEnd(Triangle* ht, Vertex& ps);
 
 };
 #endif

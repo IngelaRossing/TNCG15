@@ -74,7 +74,7 @@ bool Triangle::rayIntersection(Ray& r)
         Vertex ip = Vertex(v0.x+T.x, v0.y+T.y, v0.z+T.z, 1);
 
         //ray gets a new intersection point endP = ip and new hit_triangle = this
-        r.setEnd(*this, ip);
+        r.setEnd(this, ip);
 
         //Set ray color to triangle color but alsodependent on normal
         r.setColor(triangle_color * double(glm::dot( normal, glm::normalize(-D) )));
