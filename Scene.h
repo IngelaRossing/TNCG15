@@ -8,10 +8,10 @@
 #include <iostream>
 
 
-// The scene is always a hexagon room
+
 class Scene{
 public:
-    //different colors for the walls, white floor and ceiling
+
     void getIntersection(Ray& ray);
 
     void addSphere(const Sphere &s)
@@ -19,12 +19,13 @@ public:
         spheres.push_back(s);
         std::cout<<"Sphere added!"<<std::endl;
     }
-     void addTetrahedron(const Tetrahedron &t)
-     {
+    void addTetrahedron(const Tetrahedron &t)
+    {
         tetrahedrons.push_back(t);
         std::cout<<"Tetra added!"<<std::endl;
-     }
+    }
 
+    //different colors for the walls, white floor and ceiling
     ColorDbl white{1,1,1};
     ColorDbl w1{1,0,0}; //red
     ColorDbl w2{1,1,0}; //yellow
@@ -50,6 +51,7 @@ public:
         Vertex(0,-6,-5,0)
     };
 
+    // The scene is always a hexagon room
     const static int T_SIZE = 20;
     Triangle triangles[T_SIZE]{
 

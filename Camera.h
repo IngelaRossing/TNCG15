@@ -21,6 +21,7 @@ class Camera{
     //std::vector<std::vector<Pixel>> window;
     std::array<std::array<Pixel, WINDOW_SIZE>, WINDOW_SIZE> pixels;
 
+    ColorDbl castRay(Ray &ray, int depth);
 
 public:
     void render(); //launches a ray through each pixel one at a time and changes pixel color

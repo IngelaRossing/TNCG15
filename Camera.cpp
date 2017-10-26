@@ -49,10 +49,12 @@ void Camera::render(){
 //Let a ray spread from ray startingpoint into scene with ray.direction and get its color, which might be dependent on its reflections
 ColorDbl Camera::castRay(Ray &ray, int depth)
 {
-    //Find first intersection
-    //We need to check if we intersect a sphere or triangle first
 
-    //If first intersection is with a triangle:
+    //ray gets updated with info about the first intersection, if hitTriangle doesn't exist first intersection is with a sphere
+    //scene.getIntersection(ray);
+
+
+    //If first intersection is with a triangle: if hitTriangle exists
         //check if we should reflect a ray
         //don't reflect if surface is diffuse, depth > MAX_REFLECTIONS, contribution of next ray < THRESHOLD
 
