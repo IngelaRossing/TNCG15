@@ -22,8 +22,8 @@ bool Triangle::rayIntersection(Ray& r)
 {
     Vertex ps = r.getStart();
     Vertex pe = r.getEnd(); //Used for finding D, old first found triangle intersection with r
-    glm::vec3 E2 = v1-v0;
-    glm::vec3 E1 = v2-v0;
+    glm::vec3 E1 = v1-v0;
+    glm::vec3 E2 = v2-v0;
     glm::vec3 T = ps-v0;
     glm::vec3 D = pe-ps;
 
@@ -38,11 +38,11 @@ bool Triangle::rayIntersection(Ray& r)
 
     // if the determinant is negative the triangle is backfacing
     // if the determinant is close to 0, the ray misses the triangle
-    if (det < 0.000001f) return false; //If culling
+    if (det < 0.000000001f) return false; //If culling
 
     // ray and triangle are parallel if det is close to 0
     //Ray is parallell to triangle and misses
-    if (fabs(det) < 0.000001f) return false;
+    if (fabs(det) < 0.00000001f) return false;
     //std::cout << "ray is incoming from a good direction\n";
 
     //A point on the triangle can be found as T(u,v)
@@ -74,7 +74,7 @@ bool Triangle::rayIntersection(Ray& r)
         Vertex ip = Vertex(v0.x+T.x, v0.y+T.y, v0.z+T.z, 1);
 
         //ray gets a new intersection point endP = ip and new hit_triangle = this
-        r.setEnd(this, ip);
+        //r.setEnd(this, ip);
 
         //Set ray color to triangle color but alsodependent on normal
         r.setColor(triangle_color * double(glm::dot( normal, glm::normalize(-D) ))); //COULD BE DONE OUTSIDE FUNCTION

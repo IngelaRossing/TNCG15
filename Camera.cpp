@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-void Camera::render(){
+void Camera::render(Scene &scene){
 
     for (int r = 0; r < WINDOW_SIZE; r++)
     {
@@ -17,12 +17,12 @@ void Camera::render(){
             Vertex px = Vertex(0.0f, -1.0f + ( 0.5f+r )*delta, -1.0f + (0.5f+c)*delta, 0.0f);
             //std::cout << "("<< px.y <<"," <<px.z << ") in camera plane ";
 
-            Vertex pe = eyes[eye]; //user chooses wich eye to use with variable eye
+            Vertex ps = eyes[eye]; //user chooses wich eye to use with variable eye
 
-            glm::vec4 D = glm::normalize(pe - px) * 30.0f; //a vector D with length 30, intersecting pixel on its way to the eye
+            glm::vec4 D = glm::normalize( px - ps) * 1000.0f; //a vector D with length 30, intersecting pixel on its way to the eye
            // std::cout << "D: " << D.x << D.y << D.z << " ";
 
-            Vertex ps =  pe - D; //endpoint   //Vertex(pe.x-*D.x, pe.y-*D.y, pe.z-*D.z, 0);
+            Vertex pe =  ps + D; //endpoint   //Vertex(pe.x-*D.x, pe.y-*D.y, pe.z-*D.z, 0);
             //std::cout << "ps: " << ps.x << "," << ps.y << ","<< ps.z << " \n";
             //We create a white ray with end point somewhere far in the direction D from eye point
             Ray * ray = new Ray( ps , pe, ColorDbl(1,1,1) ); //NOTE: ray could be deallocated after function render is done

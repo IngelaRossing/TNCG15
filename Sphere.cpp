@@ -47,7 +47,7 @@ bool Sphere::rayIntersection(Ray& r)
         Vertex intPoint=Vertex(o.x+d1*l.x, o.y+d1*l.y, o.z+d1*l.z,1);
         r.setEnd(*this,intPoint); //Probably need to do this another way since this is not a triangle
         */
-
+        r.setColor(ColorDbl(0.8,0.6,0.2));
         return true; //We intersect with the sphere
     }
 

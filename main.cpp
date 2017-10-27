@@ -39,7 +39,7 @@ int main() {
 
     Camera camera;
 
-    camera.render();
+    camera.render(scene);
 
     std::cout << em.x<<" "<<em.y<<" "<<em.z<<std::endl;
 

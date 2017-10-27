@@ -16,4 +16,8 @@ void Scene::getIntersection(Ray& ray)
             //HOW DOES TETRAHEDRON WORK?
     }
     //if sphere is closer it will change r and hitTriangle will be set to nullptr
+    for(int i = 0; i < spheres.size(); i++)
+        spheres[i].rayIntersection(ray);
+    for(int i = 0; i < tetrahedrons.size(); i++)
+        tetrahedrons[i].rayIntersection(ray);
 }
