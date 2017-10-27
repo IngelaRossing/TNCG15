@@ -13,19 +13,19 @@ Triangle::Triangle(Vertex &vi0, Vertex &vi1, Vertex &vi2, ColorDbl& cl)
     //calculate normal
     Direction side1 = Direction(v1.x-v0.x, v1.y-v0.y, v1.z-v0.z);
     Direction side2 = Direction(v2.x-v0.x, v2.y-v0.y, v2.z-v0.z);
-    normal = glm::normalize(glm::cross(side1, side2));
+    normal = glm::normalize(glm::cross( side1, side2 ));
 
     std::cout << "Created triangle with normal (" << normal.x << "," << normal.y << "," << normal.z << ")\n";
 }
 
 bool Triangle::rayIntersection(Ray& r)
 {
-    Vertex pe=r.getStart();
-    Vertex ps=r.getEnd(); //Used for finding D, old first found triangle intersection with r
-    glm::vec3 E1=v1-v0;
-    glm::vec3 E2=v2-v0;
+    Vertex ps = r.getStart();
+    Vertex pe = r.getEnd(); //Used for finding D, old first found triangle intersection with r
+    glm::vec3 E2 = v1-v0;
+    glm::vec3 E1 = v2-v0;
     glm::vec3 T = ps-v0;
-    glm::vec3 D=pe-ps;
+    glm::vec3 D = pe-ps;
 
    /* std::cout<<"V0: "<<v0.x<<","<<v0.y<<","<<v0.z<<std::endl;
     std::cout<<"V1: "<<v1.x<<","<<v1.y<<","<<v1.z<<std::endl;
@@ -77,7 +77,7 @@ bool Triangle::rayIntersection(Ray& r)
         r.setEnd(this, ip);
 
         //Set ray color to triangle color but alsodependent on normal
-        r.setColor(triangle_color * double(glm::dot( normal, glm::normalize(-D) )));
+        r.setColor(triangle_color * double(glm::dot( normal, glm::normalize(-D) ))); //COULD BE DONE OUTSIDE FUNCTION
 
         return true;
     }
