@@ -19,9 +19,14 @@ public:
      Ray(Vertex& startP, Vertex& endP, ColorDbl c);
      Vertex getStart() {return start_point;}
      Vertex getEnd() {return end_point;}
+     void setEnd(Triangle* ht, Vertex& ps); //Update closest intersection
+
+     Triangle* getHitTriangle(){return hit_triangle;}
+     Direction getDirection(){return Direction(end_point.x-start_point.x, end_point.y-start_point.y, end_point.z-start_point.z);}
+
      ColorDbl getColor() {return ray_color;}
      ColorDbl setColor(ColorDbl c) {ray_color = c;}
-     void setEnd(Triangle* ht, Vertex& ps);
+
 
 };
 #endif

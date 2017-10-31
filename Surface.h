@@ -13,10 +13,12 @@ class Surface
             diffuse,
             specular
         };
-        Surface(const ColorDbl &color, const sSurfaceType type);
+        Surface(const ColorDbl &color = ColorDbl(0,0,0), const sSurfaceType type = diffuse);
         ColorDbl detSurface(); //Used to determine the surface of the object
         ColorDbl diffuseReflection();
         ColorDbl specularReflection();
+
+        //Direction reflectedRay(Ray& in, Direction normal); //returns a ray reflected from intersectionpoint
 
         sSurfaceType surfaceType;
 
