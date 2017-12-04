@@ -8,12 +8,15 @@
 class Surface
 {
     public:
-        Surface() : color (ColorDbl(0,0,0)), surfaceType(diffuse){}
-        Surface(const ColorDbl &color, const sSurfaceType type);
+        enum sSurfaceType
+        {
+            diffuse,
+            specular
+        };
+        Surface(const ColorDbl &color = ColorDbl(0,0,0), const sSurfaceType type = diffuse);
         ColorDbl detSurface(); //Used to determine the surface of the object
         ColorDbl diffuseReflection();
         ColorDbl specularReflection();
-        ColorDbl getColor(){return color;}
 
         //Direction reflectedRay(Ray& in, Direction normal); //returns a ray reflected from intersectionpoint
 
