@@ -6,7 +6,7 @@ Triangle::Triangle()
     std::cout << "Created fake triangle\n";
 }
 
-Triangle::Triangle(Vertex &vi0, Vertex &vi1, Vertex &vi2, ColorDbl& cl) //add surface type
+Triangle::Triangle(Vertex &vi0, Vertex &vi1, Vertex &vi2, ColorDbl& cl)
     : v0(vi0), v1(vi1), v2(vi2), triangle_color(cl)
 {
 
@@ -15,7 +15,8 @@ Triangle::Triangle(Vertex &vi0, Vertex &vi1, Vertex &vi2, ColorDbl& cl) //add su
     Direction side2 = Direction(v2.x-v0.x, v2.y-v0.y, v2.z-v0.z);
     normal = glm::normalize(glm::cross( side1, side2 ));
 
-//    surface = Surface(cl, diffuse);
+    //all triangles are diffuse!!!
+    surface = Surface(cl, diffuse);
 
     std::cout << "Created triangle with normal (" << normal.x << "," << normal.y << "," << normal.z << ")\n";
 }

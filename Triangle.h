@@ -19,7 +19,7 @@ public:
     Triangle(Vertex& vi0, Vertex& vi1, Vertex& vi2, ColorDbl& cl);
     Triangle();
     Direction getNormal(){return normal;}
-    //Surface getSurface(){return surface;}
+    Surface getSurface(){return surface;}
 
     // Computes the intersection between a ray and the Triangle with the Möller-Trumbore algorithm.
     bool rayIntersection(Ray& r); //Not sure if it should return a Vertex..

@@ -43,20 +43,19 @@ bool Sphere::rayIntersection(Ray& r)
 
     if(d1>EPSILON)
     {
-        /*
+
         Vertex intPoint=Vertex(o.x+d1*l.x, o.y+d1*l.y, o.z+d1*l.z,1);
-        r.setEnd(*this,intPoint); //Probably need to do this another way since this is not a triangle
-        */
-        r.setColor(ColorDbl(0.8,0.6,0.2));
+        r.setEnd(this,intPoint); //Probably need to do this another way since this is not a triangle
+
+        r.setColor(sSurface.diffuseReflection());
         return true; //We intersect with the sphere
     }
-
     else if(d2>EPSILON)
     {
-        /*
-        Vertex intPoint=Vertex(o.x+d2*l.x, o.y+d2*l.y, o.z+d2*l.z,1);
-        r.setEnd(*this,intPoint); //Probably need to do this another way since this is not a triangle
-        */
+
+       Vertex intPoint=Vertex(o.x+d2*l.x, o.y+d2*l.y, o.z+d2*l.z,1);
+        r.setEnd(this,intPoint); //Probably need to do this another way since this is not a triangle
+
 
        return true; //We intersect with the sphere
     }

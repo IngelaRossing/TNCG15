@@ -15,9 +15,9 @@ int main() {
 
     //Testing surface+Sphere, seems to be working
 
-    ColorDbl cs{3,5,6};
+    ColorDbl cs{0.3,0.5,0.6};
 
-    Sphere sphere(0.1, Vertex(0.3,0.3,0.5,0),Surface(cs, Surface::sSurfaceType::diffuse));
+    Sphere sphere(0.15, Vertex(0.3,0.3,0.5,0),Surface(cs, diffuse));
     Surface ss=sphere.getSurface();
 
     ColorDbl em=ss.detSurface();
@@ -28,7 +28,7 @@ int main() {
 
     std::cout << "TETRA" <<std::endl;
 
-    Tetrahedron tetra(Vertex(1,1,1,0),Vertex(0,0,0,0),Vertex(0.5,0.5,0,0),Vertex(0,1,0,0),Surface(cs,Surface::sSurfaceType::specular));
+    Tetrahedron tetra(Vertex(1,1,1,0),Vertex(0,0,0,0),Vertex(0.5,0.5,0,0),Vertex(0,1,0,0),Surface(cs,specular));
     scene.addTetrahedron(tetra);
 
     std::cout << "END OF TETRA" <<std::endl;

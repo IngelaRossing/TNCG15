@@ -1,7 +1,7 @@
 #include "Surface.h"
 
-Surface::Surface(const ColorDbl &color, const sSurfaceType type)
-:color(color), surfaceType(type)
+Surface::Surface(const ColorDbl &color, const surfaceType stype)
+:color(color), type(stype)
 {
     //ctor
 }
@@ -20,12 +20,12 @@ Direction Surface::reflectedRay(Ray& in, Direction normal){
 //Returns the ColorDbl depending on which surface we have chosen for our object
 ColorDbl Surface::detSurface()
 {
-    if(surfaceType==diffuse)
+    if(type==diffuse)
     {
        std::cout<<"Diffuse"<<std::endl;
        return diffuseReflection();
     }
-    else if(surfaceType==specular)
+    else if(type==specular)
         return specularReflection();
 
     std::cout<<"Error no valid surface"<<std::endl;

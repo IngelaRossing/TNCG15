@@ -12,7 +12,9 @@ using Direction =glm::vec3; //direction vector (x,y,z)
 using ColorDbl = glm::dvec3; //double[3]; //three double prec. variables for RGB intensities
 
 
-
+enum surfaceType{
+    diffuse, specular, lightSource
+};
 
 
 
