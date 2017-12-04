@@ -15,7 +15,7 @@ Triangle::Triangle(Vertex &vi0, Vertex &vi1, Vertex &vi2, ColorDbl& cl) //add su
     Direction side2 = Direction(v2.x-v0.x, v2.y-v0.y, v2.z-v0.z);
     normal = glm::normalize(glm::cross( side1, side2 ));
 
-//    surface = Surface(cl, diffuse);
+    surface = Surface(cl, diffuse);
 
     std::cout << "Created triangle with normal (" << normal.x << "," << normal.y << "," << normal.z << ")\n";
 }
@@ -76,10 +76,10 @@ bool Triangle::rayIntersection(Ray& r)
         Vertex ip = Vertex(v0.x+T.x, v0.y+T.y, v0.z+T.z, 1);
 
         //ray gets a new intersection point endP = ip and new hit_triangle = this
-        //r.setEnd(this, ip);
+        r.setEnd(this, ip);
 
         //Set ray color to triangle color but alsodependent on normal
-        r.setColor(triangle_color * double(glm::dot( normal, glm::normalize(-D) ))); //COULD BE DONE OUTSIDE FUNCTION
+        //r.setColor(triangle_color * double(glm::dot( normal, glm::normalize(-D) ))); //SHOULD BE DONE OUTSIDE THIS FUNCTION
 
         return true;
     }
