@@ -15,7 +15,7 @@ int main() {
 
     //Testing surface+Sphere, seems to be working
 
-    ColorDbl cs{0.3,0.5,0.6};
+    ColorDbl cs{1,0.8,0.2};
 
     Sphere sphere(0.15, Vertex(0.3,0.3,0.5,0),Surface(cs, diffuse));
     Surface ss=sphere.getSurface();

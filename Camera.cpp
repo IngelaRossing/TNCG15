@@ -30,12 +30,13 @@ void Camera::render(Scene &scene){
             //CAST RAY, let it get reflected into the scene
 
             //find first intersection by checking intersection with all triangles in the scene and save triangle and point in ray
-            scene.getIntersection(*ray); //WILL BE DONE INSIDE castRay
+            //scene.getIntersection(*ray); //WILL BE DONE INSIDE castRay LATER
+
+
+            castRay(*ray, 0, scene); //OBJECT CANT BE SEEN?!
 
             //DEBUGGING COMMENT: We should be looking directly at triangle 12-15 (blue and cyan wall) within our scene
 
-            //get color from BRDF which only depends on surface color and inclination angle and save in the ray
-            //it is now done inside getIntersection, but it probably can't when we want to reflect the ray
 
             pixels[r][c].intersecting_rays.push_back(ray); //Store ray in pixel
 
@@ -47,36 +48,87 @@ void Camera::render(Scene &scene){
 }
 
 //Let a ray spread from ray startingpoint into scene with ray.direction and get its color, which might be dependent on its reflections
-ColorDbl Camera::castRay(Ray &ray, int depth)
+ColorDbl Camera::castRay(Ray &ray, int depth, Scene &scene)
 {
+      // ------ FIND THE RAYS FIRST INTERSECTIONSPOINT ON A SURFACE  ---
 
     //ray gets updated with info about the first intersection, if hitTriangle doesn't exist first intersection is with a sphere
-    //scene.getIntersection(ray);
-
+    scene.getIntersection(ray);
+    Surface s{ColorDbl(0,1,0),diffuse}; //default
+    Direction normal;
 
     //If first intersection is with a triangle: if hitTriangle exists
-        //check if we should reflect a ray
-        //don't reflect if surface is diffuse, depth > MAX_REFLECTIONS, contribution of next ray < THRESHOLD
+    if(ray.getHitTriangle())
+    {
+        //We need to know surface properties and its normal
+        normal = ray.getHitTriangle()->getNormal();
+        s = ray.getHitTriangle()->getSurface();
 
-        //If no reflection:
-        //return BRDF;
+    }
+    else if(ray.getHitSphere()){
+        //find sphere normal and surface
+        normal = ray.getHitSphere()->getNormal(ray.getEnd());
+        s = ray.getHitSphere()->getSurface();
+    }
+    else //no intersection -> no light to add
+         ray.setColor(ColorDbl(0,0,1)); //base case
 
-        //If reflection:
-        //calculate how much of the light gets, dependent on surfaceproperties and geometric, later with Oren-Nayar diffuse reflection
-        //ColorDbl BRDF =
 
-        //ray2 direction, reflection R dependent on triangle normal and Monte-Carlo integration
-        //PDF: p(theta,phi) = cos(theta)/pi and CDF: F = (1/pi)integral(cos(theta) domega)
+    //FOR NOW WHEN ALL ARE DIFFUSE, LATER STEPS WILL BE ADDED LATER
+    ray.setColor(s.diffuseReflection() ); // * double(glm::dot( normal, glm::normalize(ray.getDirection()) ))
+    return ray.getColor();
 
-        //Ray ray2 = Ray(ray.getEnd(), ray.getEnd() + 30.0f* R, ColorDbl(1,1,1));
 
-    //If first intersection is with a sphere:
-        //If no reflection: return BRDF
-        //Calculate BRDF and ray2 in another way
+
+    // ------ CALCULATE LOCAL LIGHT CONTRIBUTION ------
+
+
+    //Most rays don't end up in a lighsource and we use shadow rays to add a local contribution to the ray color
+    //ColorDbl LocalLight{0,0,0};
+    // Geometric term, tilted surfaces reflect less
+    //double geometric = double(fabs(glm::dot(glm::normalize(ray.getDirection()), glm::normalize(normal))));
+
+    //return only local if diffuse surface or lightsorce or MAX_DEPTH
+    //for diffuse all incident angles give the same light contribution and the ray is not reflected so we return the color the surface emitts
+ /*   if(s.surfaceType == diffuse)
+    {
+        ray.setColor(s.diffuseReflection()  );
+        return;
+    }
+    else
+    {
+        std::cout << "odifust!";
+        //shadow rays can be added here
+    }
+*/
+    // ------ ADD REFLECED RAY IMPORTANCE -------------
+
+ /*   Direction D = s.reflectRay(ray, normal); //Reflection is dependent on surface properties, but MC-method only returns one possible ray
+    Vertex endP = in.getEnd() + Vertex(D.x,D.y,D.z,0.0f);
+    Ray out = Ray(in.getEnd(), endP, ColorDbl(0,0,0) );
+
+    //float angle = glm::angle(out.getDirection() - normal); //for geometric term in rendering eq. or inside BRDFthingy?
+
+    //Ratio of reflected radiance to incident irradiance
+    ColorDbl BRDF = s.getLightContribution(ray, out, normal); //Amount of light reflected into direction for all color chanels?
+
+    if(max(BRDF) > MIN_LIGHT_CONTRIBUTION ) {
+        ColorDbl lightColor = castRay(out, depth + 1 );
+
+        //Color towards eye is dependent on self emittance (and local with shadowrays) and surface-color * color of the first intersection of outgoing ray
+        //Rendering eq is used to calculate how much of the light is sent towards eye, dependent on surfaceproperties and geometric
+        return LocalLight + BRDF .* lightColor;
+    }
+    else //base case
+        return LocalLight; //only from self emmittance and shadowrays
+
+
 
     //Lambertian BRDF = rho/ pi, where rho is a constant refl. coeff.
     //importance of ray is given by BRDF and color of radiance getting reflected into ray
     //ray->ray_color = elementwise multiplication(BRDF, castRay(ray2, depth + 1));
+*/
+
 
 }
 
