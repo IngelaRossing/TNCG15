@@ -23,7 +23,7 @@ Triangle::Triangle(Vertex &vi0, Vertex &vi1, Vertex &vi2, ColorDbl& cl)
 
 bool Triangle::rayIntersection(Ray& r)
 {
-    Vertex ps = r.getStart();
+    Vertex ps = r.getStart(); //eye in first ray
     Vertex pe = r.getEnd(); //Used for finding D, old first found triangle intersection with r
     glm::vec3 E1 = v1-v0;
     glm::vec3 E2 = v2-v0;
@@ -51,7 +51,7 @@ bool Triangle::rayIntersection(Ray& r)
     //A point on the triangle can be found as T(u,v)
     //We calculate v after testing u for efficiency
     float invDet = 1.0f/det;
-    float u=glm::dot(P,T)*invDet; //T is not yet correct! D: TRYING WITH TRIANGLE NORMAL
+    float u=glm::dot(P,T)*invDet;
 
     //first test if it hits the triangle
     if (u < 0.0f || u > 1.0f) return false;
@@ -73,8 +73,8 @@ bool Triangle::rayIntersection(Ray& r)
     else
     {
 
-        T = u*E1 + v*E2 - t*D; //vector from v0 to intersection point ip on triangle
-        Vertex ip = Vertex(v0.x+T.x, v0.y+T.y, v0.z+T.z, 1);
+        Direction eye2ip = Direction(ps.x, ps.y,ps.z) + t*D;
+        Vertex ip = Vertex(float(eye2ip.x),float(eye2ip.y),float(eye2ip.z), 1.0);
 
         //ray gets a new intersection point endP = ip and new hit_triangle = this
         r.setEnd(this, ip);

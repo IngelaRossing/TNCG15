@@ -71,11 +71,22 @@ ColorDbl Camera::castRay(Ray &ray, int depth, Scene &scene)
         s = ray.getHitSphere()->getSurface();
     }
     else //no intersection -> no light to add
-         ray.setColor(ColorDbl(0,0,1)); //base case
+    {
+        ray.setColor(ColorDbl(0,0,1)); //base case
+        normal = Direction(1,0,0);
+        std::cout << "No intersection!\n";
+    }
+
+
+
+    //ray.setColor(ColorDbl(normal.x+1.0,normal.y+1.0,normal.z+1.0)*0.5);
+    double geometric = double(glm::dot( normal, glm::normalize(ray.getDirection()) ));
+    geometric = geometric*geometric;
+    //ray.setColor(ColorDbl(geometric, geometric,geometric));
 
 
     //FOR NOW WHEN ALL ARE DIFFUSE, LATER STEPS WILL BE ADDED LATER
-    ray.setColor(s.diffuseReflection() ); // * double(glm::dot( normal, glm::normalize(ray.getDirection()) ))
+    ray.setColor(s.diffuseReflection() *geometric);//
     return ray.getColor();
 
 

@@ -28,7 +28,7 @@ int main() {
 
     std::cout << "TETRA" <<std::endl;
 
-    Tetrahedron tetra(Vertex(1,1,1,0),Vertex(0,0,0,0),Vertex(0.5,0.5,0,0),Vertex(0,1,0,0),Surface(cs,specular));
+    Tetrahedron tetra(Vertex(1,1,1,0),Vertex(0.2,0.3,-0.2,0),Vertex(0,0,0,0),Vertex(0,0.8,0,0),Surface(cs,specular));
     scene.addTetrahedron(tetra);
 
     std::cout << "END OF TETRA" <<std::endl;
