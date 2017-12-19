@@ -80,8 +80,8 @@ ColorDbl Camera::castRay(Ray &ray, int depth, Scene &scene)
 
 
     //ray.setColor(ColorDbl(normal.x+1.0,normal.y+1.0,normal.z+1.0)*0.5);
-    double geometric = double(glm::dot( normal, glm::normalize(ray.getDirection()) ));
-    geometric = geometric*geometric;
+    double geometric = double(glm::dot( normal, -glm::normalize(ray.getDirection()) ));
+    //geometric = geometric*geometric;
     //ray.setColor(ColorDbl(geometric, geometric,geometric));
 
 
