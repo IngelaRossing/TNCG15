@@ -78,40 +78,38 @@ ColorDbl Camera::castRay(Ray &ray, int depth, Scene &scene)
     }
 
 
-
-    //ray.setColor(ColorDbl(normal.x+1.0,normal.y+1.0,normal.z+1.0)*0.5);
-    double geometric = double(glm::dot( normal, -glm::normalize(ray.getDirection()) ));
-    //geometric = geometric*geometric;
-    //ray.setColor(ColorDbl(geometric, geometric,geometric));
-
-
-    //FOR NOW WHEN ALL ARE DIFFUSE, LATER STEPS WILL BE ADDED LATER
-    ray.setColor(s.diffuseReflection() *geometric);//
-    return ray.getColor();
-
-
-
     // ------ CALCULATE LOCAL LIGHT CONTRIBUTION ------
 
 
-    //Most rays don't end up in a lighsource and we use shadow rays to add a local contribution to the ray color
-    //ColorDbl LocalLight{0,0,0};
-    // Geometric term, tilted surfaces reflect less
-    //double geometric = double(fabs(glm::dot(glm::normalize(ray.getDirection()), glm::normalize(normal))));
+    //Amount of reflected light depends on the angle of the surface
+    double geometric = double(glm::dot( normal, -glm::normalize(ray.getDirection()) ));
+
 
     //return only local if diffuse surface or lightsorce or MAX_DEPTH
     //for diffuse all incident angles give the same light contribution and the ray is not reflected so we return the color the surface emitts
- /*   if(s.surfaceType == diffuse)
+    if(s.type == diffuse)
     {
-        ray.setColor(s.diffuseReflection()  );
-        return;
+        ray.setColor(s.diffuseReflection() *geometric );
+        return ray.getColor();
     }
-    else
+    else if(s.type == lightSource)
     {
-        std::cout << "odifust!";
-        //shadow rays can be added here
+        std::cout << "Let there be light!";
+        ray.setColor(ColorDbl{10.0,10.0,10.0});
+        return ray.getColor(); //No reflections on light sources
     }
-*/
+    else if(depth >= MAX_DEPTH)
+    {
+        ray.setColor(s.diffuseReflection() *geometric );
+        return ray.getColor(); //We will not reflect the ray even if the surface is specular
+    }
+
+    //If we get past if statements the ray should be reflected
+    //Most rays don't end up in a lighsource and a local light contribution is added with shadow rays
+
+    // * ADD CONTRIBUTION FROM SHADOW RAYS HERE *
+
+
     // ------ ADD REFLECED RAY IMPORTANCE -------------
 
  /*   Direction D = s.reflectRay(ray, normal); //Reflection is dependent on surface properties, but MC-method only returns one possible ray

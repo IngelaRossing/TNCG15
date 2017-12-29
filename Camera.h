@@ -25,6 +25,8 @@ public:
     void render(Scene &scene); //launches a ray through each pixel one at a time and changes pixel color
     void createImage(); //Convert pixel data to 2D array of rgb-vectors     SHOULD IT RETURN A POINTER TO ARRAY?
    // Camera(int e);
+
+   const int MAX_DEPTH = 10; //maximum amount of reflections for a ray
 };
 
 #endif // CAMERA_H
