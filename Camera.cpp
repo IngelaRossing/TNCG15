@@ -37,8 +37,8 @@ void Camera::render(Scene &scene){
 
             //DEBUGGING COMMENT: We should be looking directly at triangle 12-15 (blue and cyan wall) within our scene
 
-
-            pixels[r][c].intersecting_rays.push_back(ray); //Store ray in pixel
+            pixels[r][c].addRay(ray);
+            //pixels[r][c].intersecting_rays.push_back(ray); //Store ray in pixel
 
         }
         //std::cout << std::endl;
@@ -146,8 +146,23 @@ ColorDbl Camera::castRay(Ray &ray, int depth, Scene &scene)
 //Convert pixel data to 2D array of rgb-vectors
 void Camera::createImage()
 {
+
     std::array<std::array<ColorDbl, WINDOW_SIZE>, WINDOW_SIZE> image; //RGB vector<double> 2D-array
+    //std::array<std::array<ivec3, WINDOW_SIZE>, WINDOW_SIZE> image; //2D-array of int vec3
     std::ofstream red, green, blue;
+
+    double maxIntensity;
+    //find max
+    for (int r = 0; r < WINDOW_SIZE; r++)
+    {
+        for (int c = 0; c < WINDOW_SIZE; c++)
+        {
+            ColorDbl color = pixels[r][c].getColor();
+            maxIntensity = fmax(maxIntensity, fmax(color.x,fmax(color.y,color.z)));
+
+        }
+    }
+
 
     //Right now i write to three diggerent files, but it should be a 3d array with vec3
     //choose some nice path where you want them
@@ -161,7 +176,13 @@ void Camera::createImage()
         for (int c = 0; c < WINDOW_SIZE; c++)
 
         {
-            image[r][c] = pixels[r][c].intersecting_rays[0]->getColor();
+            /*
+            ColorDbl d = pixels[r][c].getColor()*255.0;
+            ivec3 intColors{int(d.x/maxIntensity), int(d.y/maxIntensity), int(d.z/maxIntensity)};
+            image[r][c] = intColors;
+            */
+
+             image[r][c] = pixels[r][c].getColor();
 
 
             /*double color = image[r][c][0] + image[r][c][1] + image[r][c][2]; //black and white without truncating
