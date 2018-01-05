@@ -16,6 +16,7 @@ int main() {
     //Testing surface+Sphere, seems to be working
 
     ColorDbl cs{1,0.8,0.2};
+    ColorDbl white{1,1,1};
 
     Sphere sphere(0.15, Vertex(0.3,0.3,0.5,0),Surface(cs, diffuse));
     Surface ss=sphere.getSurface();
@@ -32,6 +33,14 @@ int main() {
     scene.addTetrahedron(tetra);
 
     std::cout << "END OF TETRA" <<std::endl;
+
+    std::cout << "LIGHTSOURCE" <<std::endl;
+
+    //Light source is always white
+    Lightsource ls(Vertex(-1,0,1,0), Vertex(1,0,1,0), Vertex(-1,0,-1,0), Vertex(1,0,-1,0), Surface(white, lightSource)); //Not much thought behind these vertices
+    scene.addLightsource(ls);
+
+    std::cout << "END OF LIGHTSOURCE" <<std::endl;
 
 
     Vertex w{1,2,3,4};

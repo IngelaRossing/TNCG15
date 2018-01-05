@@ -36,6 +36,8 @@
 		</Compiler>
 		<Unit filename="Camera.cpp" />
 		<Unit filename="Camera.h" />
+		<Unit filename="Lightsource.cpp" />
+		<Unit filename="Lightsource.h" />
 		<Unit filename="Pixel.cpp" />
 		<Unit filename="Pixel.h" />
 		<Unit filename="Ray.cpp" />

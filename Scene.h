@@ -1,9 +1,11 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include <list>
 #include "Triangle.h"
 #include "Sphere.h"
 #include "Tetrahedron.h"
+#include "Lightsource.h"
 #include<vector>
 #include <iostream>
 
@@ -23,6 +25,11 @@ public:
     {
         tetrahedrons.push_back(t);
         std::cout<<"Tetra added!"<<std::endl;
+    }
+    void addLightsource(const Lightsource &l)
+    {
+        lightsources.push_back(l);
+        std::cout<<"Lightsource added!"<<std::endl;
     }
 
     //different colors for the walls, white floor and ceiling
@@ -82,6 +89,7 @@ public:
 private:
     std::vector<Sphere> spheres;
     std::vector<Tetrahedron> tetrahedrons;
+    std::list<Lightsource> lightsources;
 };
 
 #endif // SCENE_H
